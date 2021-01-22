@@ -1,17 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 
-import FilmServices from '../services/filmServices';
 import Store from '../utils/store.js';
 
 const InfoScreen = ({route, navigation}) => {
 
-    const filmServices = new FilmServices()
     const film = navigation.getParam('film');
-
-    React.useEffect(() => {
-        console.log(film)
-    },[]);
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -41,13 +35,9 @@ const InfoScreen = ({route, navigation}) => {
 
                             return(
                                 <View key={item.id}>
-                                    <TouchableOpacity >
+                                    <TouchableOpacity onPress={() => navigation.navigate('PersonnageInfoScreen', {personnageId : item.id, previousScreen: 'InfoScreen', film: film})}>
                                         <View style={{marginLeft: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold", width: "50%"}}>{item.nom} </Text>
-                                            <View style={{width: "50%", flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                                                <Text style={{fontSize: 15}}>{item.acteur.prenom} </Text>
-                                                <Text style={{fontSize: 15}}>{item.acteur.nom}</Text>
-                                            </View>
+                                            <Text style={{fontSize: 15}}>{item.nom} par {item.acteur.prenom} {item.acteur.nom}</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <View style={{borderBottomColor: '#D3D3D3', borderBottomWidth: 1, margin: 15, width: "50%", marginLeft: "25%"}}/>

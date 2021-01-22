@@ -4,6 +4,8 @@ import 'react-native-gesture-handler';
 import FilmScreen from './screens/filmScreen';
 import InfoScreen from './screens/infoScreen';
 import ActeursListScreen from './screens/acteursListScreen'
+import ActeurInfoScreen from './screens/acteurInfoScreen'
+import PersonnageInfoScreen from './screens/personnageInfoScreen'
 
 export default createAppContainer(
     createSwitchNavigator(
@@ -26,6 +28,20 @@ export default createAppContainer(
                 screen: ActeursListScreen,
                 navigationOptions: {
                     title: 'ActeursListScreen',
+                    headerShown: false
+                }
+            },
+            ActeurInfoScreen: {
+                screen: ActeurInfoScreen,
+                navigationOptions: {
+                    title: 'ActeurInfoScreen',
+                    headerShown: false
+                }
+            },
+            PersonnageInfoScreen: {
+                screen: PersonnageInfoScreen,
+                navigationOptions: {
+                    title: 'PersonnageInfoScreen',
                     headerShown: false
                 }
             }

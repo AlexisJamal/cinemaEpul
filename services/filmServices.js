@@ -17,4 +17,18 @@ export default class FilmServices {
         })
     }
 
+    getFilmById(id) {
+        return new Promise((resolve, reject) => {
+
+            fetch(Store.BASE_URL + 'film/' + id).then((response => {
+                response.json().then(json => {
+                    resolve(json)
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    } )
+            }))
+        })
+    }
+
 }

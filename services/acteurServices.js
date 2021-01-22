@@ -17,4 +17,18 @@ export default class ActeurServices {
         })
     }
 
+    getActeurById(id) {
+        return new Promise((resolve, reject) => {
+
+            fetch(Store.BASE_URL + 'acteur/' + id).then((response => {
+                response.json().then(json => {
+                    resolve(json)
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    } )
+            }))
+        })
+    }
+
 }
