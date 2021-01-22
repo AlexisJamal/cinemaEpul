@@ -35,7 +35,7 @@ const InfoScreen = ({route, navigation}) => {
 
                             return(
                                 <View key={item.id}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('PersonnageInfoScreen', {personnageId : item.id, previousScreen: 'InfoScreen', film: film})}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('PersonnageInfoScreen', {personnageId : item.id, previousScreen: 'InfoScreen'})}>
                                         <View style={{marginLeft: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
                                             <Text style={{fontSize: 15}}>{item.nom} par {item.acteur.prenom} {item.acteur.nom}</Text>
                                         </View>

@@ -46,7 +46,7 @@ const ActeurInfoScreen = ({route, navigation}) => {
 
                             return(
                                 <View key={item.id}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('PersonnageInfoScreen', {personnageId : item.id, previousScreen: 'ActeurInfoScreen', acteur: acteur})}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('PersonnageInfoScreen', {personnageId : item.id, previousScreen: 'ActeurInfoScreen'})}>
                                         <View style={{marginLeft: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
                                             <Text style={{fontSize: 15}}>{item.nom} dans {item.film.titre}</Text>
                                         </View>

@@ -17,4 +17,15 @@ export default class PersonnageServices {
         })
     }
 
+    deletePersonnageById(id) {
+        return new Promise((resolve, reject) => {
+
+            fetch(Store.BASE_URL + 'personnage/' + id, {
+                method: 'DELETE'
+            }).then((response => {
+                resolve(response)
+            }))
+        })
+    }
+
 }
