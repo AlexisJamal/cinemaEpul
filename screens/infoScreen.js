@@ -18,14 +18,14 @@ const InfoScreen = ({route, navigation}) => {
             <ScrollView style={{overflowY: 'scroll'}}>
                 <View style={styles.container}>
                     <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center"}}>
-                        <TouchableOpacity style={{marginLeft: 20, marginBottom: 30, marginRight: 100}} onPress={() => navigation.navigate('FilmScreen')}>
+                        <TouchableOpacity style={{marginLeft: 20, marginBottom: 30}} onPress={() => navigation.navigate('FilmScreen')}>
                             <Image
                                 style={{width: 30, height: 30}}
                                 resizeMode='contain'
                                 source={require('../resources/homeIcon.png')}
                             />
                         </TouchableOpacity>
-                        <Text style={{fontSize: 15, fontWeight: "bold"}}>{film.titre}</Text>
+                        <Text style={{fontSize: 15, fontWeight: "bold", marginLeft: "20%"}}>{film.titre}</Text>
                     </View>
                     <Text style={{marginTop: 10, marginLeft: 20}}>Durée: {film.duree} minutes</Text>
                     <Text style={{marginTop: 10, marginLeft: 20}}>Date de sortie: {Store.dateFormat(new Date(film.dateSortie))}</Text>
@@ -45,8 +45,8 @@ const InfoScreen = ({route, navigation}) => {
                                         <View style={{marginLeft: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
                                             <Text style={{fontSize: 15, fontWeight: "bold", width: "50%"}}>{item.nom} </Text>
                                             <View style={{width: "50%", flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                                                <Text style={{fontSize: 15}}>prenom </Text>
-                                                <Text style={{fontSize: 15}}>nom </Text>
+                                                <Text style={{fontSize: 15}}>{item.acteur.prenom} </Text>
+                                                <Text style={{fontSize: 15}}>{item.acteur.nom}</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>

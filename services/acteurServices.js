@@ -1,12 +1,12 @@
 import React from 'react'
 import Store from '../utils/store.js';
 
-export default class FilmServices {
+export default class ActeurServices {
 
-    getFilms() {
+    getActeurs() {
         return new Promise((resolve, reject) => {
 
-            fetch(Store.BASE_URL + 'film/list').then((response => {
+            fetch(Store.BASE_URL + 'acteur/list').then((response => {
                 response.json().then(json => {
                     resolve(json)
                 })

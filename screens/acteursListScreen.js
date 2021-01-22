@@ -10,52 +10,48 @@ import {
     Image,
 } from 'react-native';
 
-import FilmServices from '../services/filmServices';
+import ActeurServices from '../services/acteurServices';
 
-const FilmScreen = ({navigation}) => {
+const ActeursListScreen = ({navigation}) => {
 
-    const [films, setFilms] =  React.useState(null);
+    const [acteurs, setActeurs] =  React.useState(null);
 
-    const filmServices = new FilmServices()
+    const acteurServices = new ActeurServices()
 
     React.useEffect(() => {
 
-        filmServices.getFilms().then(res => {
-            setFilms(res)
+        acteurServices.getActeurs().then(res => {
+            setActeurs(res)
         })
 
     },[]);
 
     const loader = () => {
-        if(films == null) {
+        if(acteurs == null) {
             return (<ActivityIndicator size="large" color="#0d1982" style={{marginTop: "50%"}} />)
         }
         else {
             return (
                 <View>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", marginBottom: 20}}>
-                        <Text style={{fontSize: 18, fontWeight: "bold", marginRight: "20%"}}>Liste des films</Text>
-                        <TouchableOpacity style={{marginRight: 20, marginBottom: 30}} onPress={() => navigation.navigate('ActeursListScreen')}>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginBottom: 20}}>
+                        <TouchableOpacity style={{marginLeft: 20, marginBottom: 30}} onPress={() => navigation.navigate('FilmScreen')}>
                             <Image
                                 style={{width: 30, height: 30}}
                                 resizeMode='contain'
-                                source={require('../resources/users.png')}
+                                source={require('../resources/homeIcon.png')}
                             />
                         </TouchableOpacity>
+                        <Text style={{fontSize: 18, fontWeight: "bold", marginLeft: "20%"}}>Liste des acteurs</Text>
                     </View>
                     {
-                        films.map((item, index) => {
+                        acteurs.map((item, index) => {
 
                             return(
                                 <View key={item.id}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('InfoScreen', {film : item})}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ActeurInfoScreen', {acteur : item})}>
                                         <View style={{marginLeft: 20, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                                            <Text style={{fontSize: 15, fontWeight: "bold", width: "50%"}}>{item.titre} </Text>
-                                            <View style={{width: "30%"}}>
-                                                <Text style={{fontSize: 15}}>{item.realisateur.prenom} </Text>
-                                                <Text style={{fontSize: 15}}>{item.realisateur.nom} </Text>
-                                            </View>
-                                            <Text style={{fontSize: 15, width: "20%"}}>{item.categorie.libelle} </Text>
+                                            <Text style={{fontSize: 15}}>{item.prenom} </Text>
+                                            <Text style={{fontSize: 15}}>{item.nom} </Text>
                                         </View>
                                     </TouchableOpacity>
                                     <View style={{borderBottomColor: '#D3D3D3', borderBottomWidth: 1, margin: 15, width: "50%", marginLeft: "25%"}}/>
@@ -85,4 +81,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FilmScreen;
+export default ActeursListScreen;
