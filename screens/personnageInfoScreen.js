@@ -104,7 +104,12 @@ const PersonnageInfoScreen = ({route, navigation}) => {
     }
 
     const handleUpdate = () => {
+        // TODO UPDATE
+        setPersonnage(null)
         setModalVisible(false)
+        personnageServices.getPersonnageById(personnageId).then(res => {
+            setPersonnage(res)
+        })
     }
 
     const loader = () => {
