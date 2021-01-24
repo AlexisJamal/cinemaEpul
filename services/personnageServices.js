@@ -48,4 +48,23 @@ export default class PersonnageServices {
         })
     }
 
+    addPersonnage(nom, acteurId, filmId) {
+        return new Promise((resolve, reject) => {
+            fetch(Store.BASE_URL + 'personnage/add', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "nom": nom,
+                    "acteurId": acteurId,
+                    "filmId": filmId
+                })
+            }).then((response => {
+                resolve(response)
+            }))
+        })
+    }
+
 }
