@@ -28,4 +28,24 @@ export default class PersonnageServices {
         })
     }
 
+    updatePersonnage(personnageId, nom, acteurId, filmId) {
+        return new Promise((resolve, reject) => {
+            fetch(Store.BASE_URL + 'personnage/update', {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "id": personnageId,
+                    "nom": nom,
+                    "acteurId": acteurId,
+                    "filmId": filmId
+                })
+            }).then((response => {
+                resolve(response)
+            }))
+        })
+    }
+
 }

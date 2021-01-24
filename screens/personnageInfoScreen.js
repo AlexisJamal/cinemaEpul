@@ -104,11 +104,12 @@ const PersonnageInfoScreen = ({route, navigation}) => {
     }
 
     const handleUpdate = () => {
-        // TODO UPDATE
         setPersonnage(null)
         setModalVisible(false)
-        personnageServices.getPersonnageById(personnageId).then(res => {
-            setPersonnage(res)
+        personnageServices.updatePersonnage(personnageId, newName, selectedActeurId, selectedFilmId).then(() => {
+            personnageServices.getPersonnageById(personnageId).then(res => {
+                setPersonnage(res)
+            })
         })
     }
 
@@ -190,7 +191,7 @@ const PersonnageInfoScreen = ({route, navigation}) => {
                                     onChangeItem={item => setSelectedActeurId(item.value)}/>
                             </View>
 
-                            <View style={{ marginTop: 32 }}>
+                            <View style={{ marginTop: 32, zIndex: 500  }}>
                                 <Text style={[styles.inputTitle, {marginBottom: 5}]}>Film</Text>
                                 <DropDownPicker
                                     items={filmsList}
