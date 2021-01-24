@@ -11,4 +11,18 @@ export default class Store {
     static numFormatter = (num) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
+
+    static construcSearchParams = (realisateurId, categorieId) => {
+        let res = ""
+        if(realisateurId != -1) {
+            res += "?realisateur=" + realisateurId
+            if(categorieId != -1) {
+                res += "&categorie=" + categorieId
+            }
+        }
+        else if(categorieId != -1) {
+            res += "?categorie=" + categorieId
+        }
+        return res
+    }
 }

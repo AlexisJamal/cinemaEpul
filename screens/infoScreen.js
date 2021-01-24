@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
+import { View, SafeAreaView, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 
 import Store from '../utils/store.js';
+import styles from '../Style.js'
 
 const InfoScreen = ({route, navigation}) => {
 
@@ -50,12 +51,5 @@ const InfoScreen = ({route, navigation}) => {
         </SafeAreaView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    }
-});
 
 export default InfoScreen;

@@ -1,22 +1,32 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     ActivityIndicator,
     SafeAreaView,
     ScrollView,
     TouchableOpacity,
-    Image,
+    Image, Modal, TouchableWithoutFeedback, Dimensions, TextInput,
 } from 'react-native';
 
 import FilmServices from '../services/filmServices';
+import DropDownPicker from "react-native-dropdown-picker";
+import RealisateurServices from '../services/realisateurServices';
+import CategorieServices from '../services/categorieServices';
+import styles from '../Style.js'
 
 const FilmScreen = ({navigation}) => {
 
     const [films, setFilms] =  React.useState(null);
+    const [modalVisible, setModalVisible] =  React.useState(false);
+    const [selectedRealisateurId, setSelectedRealisateurId] =  React.useState("");
+    const [selectedCategorieId, setSelectedCategorieId] =  React.useState("");
+    const [realisateursList, setRealisateursList] =  React.useState([]);
+    const [categoriesList, setCategoriesList] =  React.useState([]);
 
     const filmServices = new FilmServices()
+    const realisateurServices = new RealisateurServices()
+    const categorieServices = new CategorieServices()
 
     React.useEffect(() => {
 
@@ -26,6 +36,49 @@ const FilmScreen = ({navigation}) => {
 
     },[]);
 
+    const openModal = () => {
+        realisateurServices.getRealisateurs().then(realisateurs => {
+            let list = []
+            list.push({value: -1, label: "Tous les réalisateurs"})
+            for(let r of realisateurs) {
+                list.push({value: r.id, label: r.prenom + ' ' + r.nom})
+            }
+            setRealisateursList(list)
+            if(selectedRealisateurId == "") {
+                setSelectedRealisateurId(list[0].value)
+            }
+
+            categorieServices.getCategories().then(categories => {
+                let list = []
+                list.push({value: -1, label: "Toutes les catégories"})
+                for(let c of categories) {
+                    list.push({value: c.id, label: c.libelle})
+                }
+                setCategoriesList(list)
+                if(selectedCategorieId == "") {
+                    setSelectedCategorieId(list[0].value)
+                }
+                setModalVisible(true)
+            })
+        })
+    }
+
+    const filtrer = () => {
+        setFilms(null)
+        setModalVisible(false)
+        if(selectedRealisateurId != -1 || selectedCategorieId != -1) {
+            filmServices.getFilmsBySearch(selectedRealisateurId, selectedCategorieId).then(res => {
+                setFilms(res)
+            })
+        }
+        else {
+            filmServices.getFilms().then(res => {
+                setFilms(res)
+            })
+        }
+
+    }
+
     const loader = () => {
         if(films == null) {
             return (<ActivityIndicator size="large" color="#0d1982" style={{marginTop: "50%"}} />)
@@ -34,6 +87,9 @@ const FilmScreen = ({navigation}) => {
             return (
                 <View>
                     <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", marginBottom: 20}}>
+                        <TouchableOpacity style={[styles.displayButton, {marginRight: 20}]} onPress={openModal}>
+                            <Text style={{ color: "#FFF", fontWeight: "500"}}>Filtrer</Text>
+                        </TouchableOpacity>
                         <Text style={{fontSize: 18, fontWeight: "bold", marginRight: "20%"}}>Liste des films</Text>
                         <TouchableOpacity style={{marginRight: 20, marginBottom: 30}} onPress={() => navigation.navigate('ActeursListScreen')}>
                             <Image
@@ -67,22 +123,70 @@ const FilmScreen = ({navigation}) => {
         }
     }
 
+    const displayModal = () => {
+        if(realisateursList.length > 0 && categoriesList.length > 0) {
+            return (
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                >
+                    <View style={{flex: 1, backgroundColor: "#000000AA", justifyContent: "flex-end"}}>
+                        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+                            <View style={{flex: 1, width: "100%"}}/>
+                        </TouchableWithoutFeedback>
+                        <View style={[styles.modalView, {maxHeight: Dimensions.get("window").height * 0.5}]}>
+                            <Text style={{fontSize: 15, fontWeight: "bold", textAlign: "center"}}>Filtrer les
+                                films</Text>
+
+                            <View style={{marginTop: 32, zIndex: 1000}}>
+                                <Text style={[styles.inputTitle, {marginBottom: 5}]}>Réalisateur</Text>
+                                <DropDownPicker
+                                    items={realisateursList}
+                                    defaultValue={selectedRealisateurId}
+                                    containerStyle={{height: 40}}
+                                    style={{backgroundColor: "#fafafa"}}
+                                    labelStyle={{color: "black"}}
+                                    itemStyle={{justifyContent: "flex-start"}}
+                                    dropDownStyle={{backgroundColor: "#fafafa"}}
+                                    onChangeItem={item => setSelectedRealisateurId(item.value)}/>
+                            </View>
+
+                            <View style={{marginTop: 32, zIndex: 500}}>
+                                <Text style={[styles.inputTitle, {marginBottom: 5}]}>Catégorie</Text>
+                                <DropDownPicker
+                                    items={categoriesList}
+                                    defaultValue={selectedCategorieId}
+                                    containerStyle={{height: 40}}
+                                    style={{backgroundColor: "#fafafa"}}
+                                    labelStyle={{color: "black"}}
+                                    itemStyle={{justifyContent: "flex-start"}}
+                                    dropDownStyle={{backgroundColor: "#fafafa"}}
+                                    onChangeItem={item => setSelectedCategorieId(item.value)}/>
+                            </View>
+
+                            <TouchableOpacity
+                                style={[styles.button, {backgroundColor: 'blue', marginBottom: 10, marginTop: 50}]}
+                                onPress={filtrer}>
+                                <Text style={{color: "#FFF", fontWeight: "500"}}>Filtrer</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>)
+        }
+    }
+
     return (
         <SafeAreaView style={{flex: 1}}>
             <ScrollView style={{overflowY: 'scroll'}}>
                 <View style={styles.container}>
                     {loader()}
+
+                    {displayModal()}
                 </View>
             </ScrollView>
         </SafeAreaView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    }
-});
 
 export default FilmScreen;

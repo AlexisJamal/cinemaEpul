@@ -1,16 +1,15 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     SafeAreaView,
     ScrollView,
     Text,
     TouchableOpacity,
-    Image,
-    ActivityIndicator,
+    Image
 } from 'react-native';
 
 import Store from '../utils/store.js';
+import styles from '../Style.js'
 
 const ActeurInfoScreen = ({route, navigation}) => {
 
@@ -61,12 +60,5 @@ const ActeurInfoScreen = ({route, navigation}) => {
         </SafeAreaView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    }
-});
 
 export default ActeurInfoScreen;

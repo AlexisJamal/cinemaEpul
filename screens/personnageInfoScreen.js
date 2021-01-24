@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     SafeAreaView,
     ScrollView,
@@ -14,6 +13,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import PersonnageServices from '../services/personnageServices';
 import ActeurServices from '../services/acteurServices';
 import FilmServices from '../services/filmServices';
+import styles from '../Style.js'
 
 const PersonnageInfoScreen = ({route, navigation}) => {
 
@@ -131,13 +131,13 @@ const PersonnageInfoScreen = ({route, navigation}) => {
                         <Text style={{fontSize: 15, fontWeight: "bold", marginLeft: "20%"}}>{personnage.nom}</Text>
                     </View>
                     <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginBottom: 5}}>
-                        <Text style={{marginTop: 10, marginLeft: 20, width: "40%"}}>Acteur: {personnage.acteur.prenom} {personnage.acteur.nom}</Text>
+                        <Text style={{marginTop: 10, marginLeft: 20, width: "50%"}}>Acteur: {personnage.acteur.prenom} {personnage.acteur.nom}</Text>
                         <TouchableOpacity style={styles.displayButton} onPress={goToActeur}>
                             <Text style={{ color: "#FFF", fontWeight: "500"}}>Afficher</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginBottom: 50}}>
-                        <Text style={{marginTop: 10, marginLeft: 20, width: "40%"}}>Film: {personnage.film.titre}</Text>
+                        <Text style={{marginTop: 10, marginLeft: 20, width: "50%"}}>Film: {personnage.film.titre}</Text>
                         <TouchableOpacity style={styles.displayButton} onPress={goToFilm}>
                             <Text style={{ color: "#FFF", fontWeight: "500"}}>Afficher</Text>
                         </TouchableOpacity>
@@ -225,48 +225,5 @@ const PersonnageInfoScreen = ({route, navigation}) => {
         </SafeAreaView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    },
-    displayButton: {
-        marginHorizontal: 30,
-        backgroundColor: "#ADD8E6",
-        borderRadius: 4,
-        height: 30,
-        width: 70,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    button: {
-        marginHorizontal: 30,
-        borderRadius: 4,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    modalView: {
-        flex: 1,
-        width: "100%",
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        padding: 20,
-        backgroundColor: "#FFF"
-    },
-    inputTitle: {
-        color: "#8A8F9E",
-        fontSize: 10,
-        textTransform: "uppercase"
-    },
-    input: {
-        borderBottomColor: "#8A8F9E",
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        height: 40,
-        fontSize: 15,
-        color: "#161F3D"
-    }
-});
 
 export default PersonnageInfoScreen;

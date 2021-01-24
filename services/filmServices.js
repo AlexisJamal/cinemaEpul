@@ -31,4 +31,17 @@ export default class FilmServices {
         })
     }
 
+    getFilmsBySearch(realisateurId, categorieId) {
+        return new Promise((resolve, reject) => {
+
+            fetch(Store.BASE_URL + 'film/search' + Store.construcSearchParams(realisateurId, categorieId)).then((response => {
+                response.json().then(json => {
+                    resolve(json)
+                })
+                    .catch(error => {
+                        console.log(error.message)
+                    } )
+            }))
+        })
+    }
 }

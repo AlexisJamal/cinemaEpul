@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     ActivityIndicator,
@@ -11,6 +10,7 @@ import {
 } from 'react-native';
 
 import ActeurServices from '../services/acteurServices';
+import styles from '../Style.js'
 
 const ActeursListScreen = ({navigation}) => {
 
@@ -73,12 +73,5 @@ const ActeursListScreen = ({navigation}) => {
         </SafeAreaView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    }
-});
 
 export default ActeursListScreen;
